@@ -1,0 +1,17 @@
+# Node.js
+node_modules/
+.env
+service-account.json
+
+# Logs
+npm-debug.log
+yarn-error.log
+
+# Docker
+docker-compose.override.yml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+
