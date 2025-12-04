@@ -1,2 +1,8 @@
-FROM ubuntu:18.04
-RUN echo 'Hello, World!' > /test.txt
+FROM node:18
+
+WORKDIR /app
+COPY home.html .
+COPY server.js .
+
+EXPOSE 8080
+CMD ["node", "server.js"]

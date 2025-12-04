@@ -1,4 +1,2 @@
 read me
-
-
-git remote set-url origin git@github.com/mateoscode/CloudCA.git
+ dockerfile and docker-compose made 
