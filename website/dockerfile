@@ -1,17 +1,5 @@
+FROM php:8.2-apache
 
-FROM node:18
+RUN docker-php-ext-install pdo pdo_mysql
 
-WORKDIR /app
-
-COPY package*.json ./
-
-RUN npm install
-
-# Copy code
-COPY server.js home.html ./
-
-ENV GOOGLE_APPLICATION_CREDENTIALS="/app/firebase-key.json"
-
-EXPOSE 8080
-
-CMD ["node", "server.js"]
+COPY . /var/www/html/
