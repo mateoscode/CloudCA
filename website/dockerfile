@@ -4,10 +4,11 @@ FROM node:18
 WORKDIR /app
 
 COPY package*.json ./
+
 RUN npm install
 
 # Copy code
-COPY server.js home.html firebase-key.json ./
+COPY server.js home.html ./
 
 ENV GOOGLE_APPLICATION_CREDENTIALS="/app/firebase-key.json"
 
