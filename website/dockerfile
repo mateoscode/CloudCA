@@ -1,0 +1,16 @@
+
+FROM node:18
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
+
+# Copy code
+COPY server.js home.html firebase-key.json ./
+
+ENV GOOGLE_APPLICATION_CREDENTIALS="/app/firebase-key.json"
+
+EXPOSE 8080
+
+CMD ["node", "server.js"]
