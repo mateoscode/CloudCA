@@ -10,11 +10,16 @@ services:
 
   db:
     image: mariadb:11
+
     environment:
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: cloudca
       MYSQL_USER: matt
       MYSQL_PASSWORD: mattpass
+
+    ports:
+      - "3306:3306"
+
     volumes:
       - db_data:/var/lib/mysql
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql

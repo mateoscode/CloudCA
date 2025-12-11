@@ -3,17 +3,17 @@ const http = require("http");
 const fs = require("fs");
 
 
-// HTTP Server
+
 http.createServer(async (req, res) => {
 
-  // ---- Serve HTML
+  // ----Home Page
   if (req.method === "GET" && req.url === "/") {
     const html = fs.readFileSync("home.html", "utf8");
     res.writeHead(200, { "Content-Type": "text/html" });
     return res.end(html);
   }
 
-  // ---- Handle Form Submit
+  // ---- Submit form 
   if (req.method === "POST" && req.url === "/submit") {
     let body = "";
     req.on("data", chunk => {
@@ -29,8 +29,6 @@ http.createServer(async (req, res) => {
           res.end("Email and 6+ character password required");
           return;
         }
-        // Firebase removed: just echo the data
-        console.log("Received user:", email);
         res.writeHead(200, { "Content-Type": "text/plain" });
         res.end("User data received (no Firebase)");
       } catch (error) {
