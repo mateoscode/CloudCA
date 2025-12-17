@@ -2,27 +2,6 @@ version: "3.8"
 
 services:
   web:
-    build: ./website
+    build: .
     ports:
-      - "8080:80"
-    depends_on:
-      - db
-
-  db:
-    image: mariadb:11
-
-    environment:
-      MYSQL_ROOT_PASSWORD: secret
-      MYSQL_DATABASE: cloudca
-      MYSQL_USER: matt
-      MYSQL_PASSWORD: mattpass
-
-    ports:
-      - "3306:3306"
-
-    volumes:
-      - db_data:/var/lib/mysql
-      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
-
-volumes:
-  db_data:
+      - "8080:8080"

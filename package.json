@@ -1,0 +1,12 @@
+{
+  "name": "cloud-comp-ca",
+  "version": "1.0.0",
+  "description": "Simple Node server posting form data to Firestore",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.1.0"
+  }
+}

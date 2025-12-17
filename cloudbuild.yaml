@@ -1,0 +1,37 @@
+substitutions:
+  _REGION: europe-west1
+  _REPOSITORY: cloud-run
+  _SERVICE: cloudcompca
+  _IMAGE: cloudcompca
+
+steps:
+  - name: gcr.io/cloud-builders/docker
+    id: Build image
+    args:
+      - build
+      - "-t"
+      - "$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPOSITORY/$_IMAGE:$SHORT_SHA"
+      - .
+
+  - name: gcr.io/cloud-builders/docker
+    id: Push image
+    args:
+      - push
+      - "$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPOSITORY/$_IMAGE:$SHORT_SHA"
+
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    id: Deploy to Cloud Run
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - $_SERVICE
+      - "--image=$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPOSITORY/$_IMAGE:$SHORT_SHA"
+      - "--region=$_REGION"
+      - "--allow-unauthenticated"
+      - "--port=8080"
+      - "--set-secrets"
+      - FIREBASE_CREDENTIALS=firestore-key:latest
+
+images:
+  - "$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPOSITORY/$_IMAGE:$SHORT_SHA"

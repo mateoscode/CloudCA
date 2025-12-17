@@ -1,0 +1,7 @@
+node_modules
+npm-debug.log
+firebase-key.json
+.git
+.gitignore
+cloudbuild.yaml
+readme.md
