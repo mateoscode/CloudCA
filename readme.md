@@ -22,7 +22,7 @@ This project demonstrates a cloud-native Node.js application deployed on Google 
 
 1.  **Clone the repository:**
     ```bash
-    git clone <your-repo-url>
+    git clone https://github.com/mateoscode/CloudCA
     cd cloudCompCA
     ```
 
