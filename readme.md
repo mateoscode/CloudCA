@@ -22,19 +22,6 @@ This repo contains a cloud-native Node.js application deployed on **Google Cloud
 - [cloudbuild.yaml](cloudbuild.yaml) defines the CI/CD steps and substitutions.
 - Cloud Run keeps scaling/invocation settings declarative; credentials arrive only through env vars provided by Secret Manager.
 
-### 4. Source Control & Documentation
-- Code, Dockerfile, and pipeline config all live in the public GitHub repo `mateoscode/CloudCA`.
-- This README documents the architecture, IAM, deployment flow, and testing steps.
-
----
-
-## 🧱 Architecture Overview
-- **Frontend** – Static HTML/CSS form (`home.html`) served by Node.js.
-- **Backend** – `server.js` (vanilla HTTP server) exposes `GET /` and `POST /submit`.
-- **Database** – Firestore collection `logintest` persists `email`, `password`, and timestamps.
-- **Secrets** – `firestore-key` in Secret Manager, injected as `FIREBASE_CREDENTIALS`.
-- **Deployment** – Cloud Build → Artifact Registry → Cloud Run (region `europe-west1`).
-
 ---
 
 ## ⚙️ Local Development
@@ -113,76 +100,7 @@ Monitor progress under *Cloud Build → History* and confirm new revisions in *C
 - Google Cloud Build
 - Google Cloud Secret Manager
 
----
 
-
-### 3. Infrastructure Configuration
-*   **Declarative Config**:
-    *   `Dockerfile`: Optimized multi-stage build using `node:20-alpine` for minimal footprint.
-    *   `cloudbuild.yaml`: Defines the entire build infrastructure.
-*   **Scaling**: Cloud Run is configured to automatically scale instances based on traffic (default 0-100 instances).
-*   **Security**: Minimal IAM roles are used. Credentials are injected strictly at runtime via Secret Manager environment variables.
-
-### 4. Source Control & Documentation
-*   **GitHub**: All source code and configuration (excluding secrets) are hosted in this public repository.
-*   **Documentation**: This file serves as the comprehensive guide for architecture and deployment.
-
----
-
-## 🛠️ Architecture
-
-*   **Frontend**: HTML5/CSS3 (served via Node.js).
-*   **Backend**: Node.js (Vanilla HTTP Server).
-*   **Database**: Firestore (Collection: `logintest`).
-*   **CI/CD**: Cloud Build triggers on GitHub Push -> Artifact Registry -> Cloud Run.
-
----
-
-## 🚀 Setup & Deployment Guide
-
-### Prerequisites
-*   Google Cloud Platform Project.
-*   `gcloud` CLI installed and authenticated.
-
-### Local Development
-To run the project on your machine:
-```bash
-# 1. Clone
-git clone <repo-url>
-cd cloudCompCA
-
-# 2. Add Keys
-# Place your 'firebase-key.json' in the root folder.
-# (This file is ignored by git for security)
-
-# 3. Install
-npm install
-
-# 4. Run
-npm start
-```
-Access the app at `http://localhost:8080`.
-
-### Cloud Deployment (One-Time Setup)
-
-Since the code uses secure infrastructure, you must provision these resources once:
-
-**1. Create Artifact Registry**
-```bash
-gcloud artifacts repositories create cloud-run \
-    --location=europe-west1 \
-    --repository-format=docker \
-    --description="App Repository"
-```
-
-<<<<<<< HEAD
-*   Node.js
-*   Docker
-*   Google Cloud Run
-*   Google Cloud Firestore
-*   Google Cloud Build
-*   Google Artifact Registry
-=======
 **2. Configure Secrets**
 ```bash
 gcloud secrets create firestore-key --replication-policy="automatic"
@@ -201,26 +119,21 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
 gcloud projects add-iam-policy-binding $PROJECT_ID \
     --member="serviceAccount:[PROJECT_NUMBER]-compute@developer.gserviceaccount.com" \
     --role="roles/secretmanager.secretAccessor"
-```
 
-**4. Create Trigger**
-Go to **Cloud Build > Triggers** in the Console and connect this GitHub repository.
-
----
-
-## 🔒 Security Features
-*   **.dockerignore**: Ensures local sensitive files (`firebase-key.json`, `.env`) are never baked into the container image.
-*   **Secret Manager**: Credentials are mounted only in memory during runtime.
-*   **Least Privilege**: The application runs with a specific service account identity.
 
 
 Cost Analysis
 
 This application uses serverless and managed Google Cloud services, resulting in minimal operating costs. All services remain within their respective free tiers for typical coursework usage.
+| Service | Pricing Model | Expected Cost |
+|-------|---------------|---------------|
+| Cloud Run         | $0.000018 per vCPU-second, $0.000002 per GiB-second | $0 – $1 / month |
+| Firestore         | Free tier: 1 GiB storage, reads/writes per day      | $0 |
+| Artifact Registry | Up to 0.5 GB free, then $0.10/GB/month              | $0 |
 
-Service	Pricing Model	Expected Cost
-Cloud Run	$0.000018 per vCPU-second, $0.000002 per GiB-second	$0 – $1 / month
-Firestore	Free tier: 1 GiB storage, reads/writes per day	$0
-Artifact Registry	Up to 0.5 GB storage free, then $0.10/GB/month	$0
 
 Overall, the estimated monthly cost of hosting this application is between $0 and $1, making it suitable for small-scale academic use.
+
+
+AI tool usage
+i used chatgpt to help structure the readme report and copilot to help me with the deployment 
