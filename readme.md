@@ -115,11 +115,6 @@ Monitor progress under *Cloud Build → History* and confirm new revisions in *C
 
 ---
 
-## 📄 Submission Notes
-- Project ID: `cloudcompcagc`
-- Region: `europe-west1`
-- Firestore collection: `logintest`
-- Provide the zipped repo (minus `firebase-key.json`) via Moodle per assignment requirements.
 
 ### 3. Infrastructure Configuration
 *   **Declarative Config**:
@@ -218,7 +213,3 @@ Go to **Cloud Build > Triggers** in the Console and connect this GitHub reposito
 *   **Secret Manager**: Credentials are mounted only in memory during runtime.
 *   **Least Privilege**: The application runs with a specific service account identity.
 
-## 📦 Submission Details
-This repository connects to GCP Project ID: `[YOUR-PROJECT-ID]`.
-Region: `europe-west1`.
->>>>>>> d3db4a1 (working final)
