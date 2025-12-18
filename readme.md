@@ -100,29 +100,9 @@ Monitor progress under *Cloud Build → History* and confirm new revisions in *C
 - Google Cloud Build
 - Google Cloud Secret Manager
 
+---
 
-**2. Configure Secrets**
-```bash
-gcloud secrets create firestore-key --replication-policy="automatic"
-gcloud secrets versions add firestore-key --data-file="./firebase-key.json"
-```
-
-**3. Grant Permissions**
-The build system needs to read the secret to verify it, and the app needs it to run.
-```bash
-# Grant specific access to Cloud Build & Cloud Run Service Accounts
-# Replace [PROJECT_NUMBER] with your project number (found in Dashboard)
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-    --member="serviceAccount:[PROJECT_NUMBER]@cloudbuild.gserviceaccount.com" \
-    --role="roles/secretmanager.secretAccessor"
-
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-    --member="serviceAccount:[PROJECT_NUMBER]-compute@developer.gserviceaccount.com" \
-    --role="roles/secretmanager.secretAccessor"
-
-
-
-Cost Analysis
+## Cost Analysis
 
 This application uses serverless and managed Google Cloud services, resulting in minimal operating costs. All services remain within their respective free tiers for typical coursework usage.
 | Service | Pricing Model | Expected Cost |
