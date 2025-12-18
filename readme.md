@@ -114,6 +114,10 @@ This application uses serverless and managed Google Cloud services, resulting in
 
 Overall, the estimated monthly cost of hosting this application is between $0 and $1, making it suitable for small-scale academic use.
 
+<img width="730" height="353" alt="Screenshot 2025-12-18 022605" src="https://github.com/user-attachments/assets/1747d1bf-4d44-4a5b-80a4-3033ac54b954" />
+<img width="929" height="540" alt="Screenshot 2025-12-18 023859" src="https://github.com/user-attachments/assets/cb60db8d-bb22-4302-a128-9620032281c0" />
+
+
 
 AI tool usage
 i used chatgpt to help structure the readme report and copilot to help me with the deployment 
