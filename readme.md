@@ -54,6 +54,24 @@ The deployment is automated using **Cloud Build**.
     *   See `cloudbuild.yaml` for pipeline details.
     *   Secrets (like Firestore credentials) are injected at runtime via Secret Manager.
 
+### Service accounts & IAM adjustments
+
+Pick (or create) a dedicated **build service account** for Cloud Build, then grant it:
+
+- `roles/run.admin` (deploy to Cloud Run)
+- `roles/artifactregistry.writer` (push container images)
+- `roles/secretmanager.secretAccessor` (pass the Firestore key through `FIREBASE_CREDENTIALS`)
+- `roles/iam.serviceAccountUser` on the Cloud Run runtime service account (so it can deploy revisions on that identity)
+
+Whichever Cloud Run runtime service account you use must also have `roles/secretmanager.secretAccessor` on the `firestore-key` secret so the container can load credentials at startup. Update the README with the actual service-account emails you choose for submission/documentation.
+
+### Connecting GitHub to Cloud Build
+
+1. Open **Cloud Build → Triggers → Manage repositories → Connect repository**.
+2. Authorize the Cloud Build GitHub App and select `mateoscode/cloud-comp-ca`.
+3. Create the trigger (`cloudcompca-deploy`) pointing at `cloudbuild.yaml` and branch `^main$`.
+4. After the first push, verify the pipeline in **Cloud Build → History** and confirm a new Cloud Run revision is created.
+
 ## API Endpoints
 
 *   `GET /`: Serves the home page (`home.html`).
