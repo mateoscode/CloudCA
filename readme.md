@@ -213,3 +213,14 @@ Go to **Cloud Build > Triggers** in the Console and connect this GitHub reposito
 *   **Secret Manager**: Credentials are mounted only in memory during runtime.
 *   **Least Privilege**: The application runs with a specific service account identity.
 
+
+Cost Analysis
+
+This application uses serverless and managed Google Cloud services, resulting in minimal operating costs. All services remain within their respective free tiers for typical coursework usage.
+
+Service	Pricing Model	Expected Cost
+Cloud Run	$0.000018 per vCPU-second, $0.000002 per GiB-second	$0 – $1 / month
+Firestore	Free tier: 1 GiB storage, reads/writes per day	$0
+Artifact Registry	Up to 0.5 GB storage free, then $0.10/GB/month	$0
+
+Overall, the estimated monthly cost of hosting this application is between $0 and $1, making it suitable for small-scale academic use.
